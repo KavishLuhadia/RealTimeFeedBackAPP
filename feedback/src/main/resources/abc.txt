@@ -1,0 +1,619 @@
+InterService Communication Between Microservices
+
+In this video let's learn about
+inter-service communication which
+basically talks about how microservices
+talks to other micro services are with
+each other so for that I'm gonna take an
+example of e-commerce order processing
+micro service or order placing micro
+services let's understand how it was how
+it used to be in monolithic and then
+understand how it will be in micro
+service say for example this would be a
+function which basically handles placing
+order in case of monolithic it would
+have been much simpler right so this is
+a function called place order in which
+there will be three different
+functionality the first one is
+generating bill as soon as you place an
+order I want to generate a bill and then
+basically I want to update the orders
+table with other whatever order we want
+to place and then we also notify the
+merchant that someone has placed an
+order in that case it would have been
+simple function call because in
+monolithic we have all the modules in
+the same server so it would have been
+just a functional value at the bill
+update orders table and notify much in
+it would have been much easier now so in
+case of micro services when a user
+places an order the in the micros order
+processing micro services the first
+thing it will do is generated since this
+is not the order processing whether
+services responsibility this function
+should be able to somehow communicate to
+the billing micro service and get that
+thing done how we can do is as we
+learned based on if we can do it in two
+ways one is based on HTTP the other one
+is RPC call or you can do in many ways
+but these are the two ways which
+everyone prefers because of simplicity
+and usability in all the purpose so when
+we want to do this action what we have
+to do is somehow we have to call this
+micro service and tell give all the
+arguments which we needed and then it
+executes here as I mentioned two ways is
+either we can do HTTP call or RPC car
+and then we get the response back and
+then we basically do the update orders
+table this is actually the
+responsibility of the order process
+that actually runs locally basically in
+the same instance and then we have to
+execute notify March end this is not the
+order processing major services
+responsibilities so we had again call
+much in micro service and is the same
+way either by HTTP our RPC okay and then
+we get back the response and we can now
+give back the response that question
+started here and the response after
+finishing all of this work there are so
+many advantages and disadvantages doing
+        
+this way so what we are doing here is
+        
+basically we are making the synchronous
+        
+call from order processing micro
+        
+services to billing micro services and
+        
+the similarly there are like two
+        
+different synchronous call right so this
+        
+is not really the ideal way to do all
+         
+the time so there are let's learn how
+      
+what are the different advantages and
+      
+disadvantages of using synchronous calls
+      
+between micro services and also learn
+      
+how do we do using asynchronous calls so
+         
+let us understand what is synchronous
+         
+inter micro service communication as I
+         
+have already explained a synchronous
+         
+micro service communication is basically
+         
+calling different micro services
+         
+synchronously say this is client this is
+         
+a PA it way when a client makes a call
+         
+to a PA gateway this is going to call
+         
+the micro service one and this micro
+         
+services need some data from micro
+         
+service to what is happening actually
+         
+happening is making your synchronous
+         
+call in real-time from micro service    
+         
+to micro service to over rest or RPC
+         
+whatever and then wait until this micro
+         
+service to returns the response and then
+         
+it does whatever processor gets supposed
+         
+to do and then returns the response JP
+         
+gateway then ap get reference back to
+         
+the client so this whole cycle is
+      
+basically synchronous way of
+      
+communicating between micro services so
+      
+what are the advantages of having a
+      
+synchronous intercommunication between
+      
+micro sources ease first of all it is
+         
+very easy to implement because we are
+         
+all familiar with rest and HTTP calls so
+         
+it is much easier to implement
+         
+in the communications between
+         
+microservices and easy to handle in
+         
+different use case as well different
+         
+errors because we know what error the
+         
+other services written immediately in
+         
+real time so we can make an immediate
+         
+decision and return back the response
+         
+that's one advantage and the second one
+         
+is real time because we get the
+         
+responses in real time even though it is
+         
+calling many micro-services this could
+         
+be calling one more micro services but
+         
+we get the real-time response it's not
+         
+like we are waiting for something to
+         
+happen in the backend and then it's not
+         
+really a synchronous but it's like we
+     
+get the response back with it for the
+      
+same API call so these are the
+      
+advantages and also what are the
+      
+disadvantages if you ask the first one
+      
+is service availability what does it
+      
+mean you say for example we are making a
+         
+call to micro service one and micro
+         
+service with one is making one more
+         
+quarter my grocery store this expects
+         
+this service to be always available for
+         
+some reason if this service is down then
+         
+the request we won't get the complete
+         
+response we were supposed to written by
+         
+the micro service one because this
+         
+service is down we can't really get the
+         
+information which we needed from the
+         
+micro services too so we always expect
+         
+this micro service to be up and running
+         
+when M is     micro service     is also
+         
+operating this kind of violates the sole
+         
+purpose of going to micro service micro
+         
+services architecture because we always
+         
+want these micro services to be isolated
+         
+or you know to be independent of the
+      
+other micro services but if you really
+      
+need to become communicated we have to
+      
+have a synchronous communication between
+      
+them but what happens now is because
+      
+this is not available
+         
+this service is also dependent on this
+         
+service so basically we have a tightly
+         
+kind of coupled services here
+         
+but there are some use cases which we
+         
+can't escape that case it's fine to have
+         
+a synchronous communication
+         
+the next thing is response time the
+         
+increased latency of the response time
+         
+of the request what could happen is what
+         
+if micro-service one is calling micro
+         
+service to and micro service is also
+         
+calling micro service T     is calling for
+         
+four is cutting fire what if this hob is
+         
+too many in that and all communications
+         
+are happening in a synchronous way then
+         
+there is that there is latency added
+         
+between every call from micro service to
+         
+micro service then we might be you know
+      
+expecting a lot of latency or delay in
+      
+the response in the in this call so
+      
+that's one more problem so always the
+      
+idea is if for sure if you know the
+         
+other services the dependent services
+         
+are always high available and they
+         
+always return responds immediately
+         
+within with a matter of millisecond or
+         
+you know less than second then it's
+         
+always good to have a know synchronous
+         
+communication between micro services
+         
+otherwise it is always good to consider
+         
+a synchronous way of intercommunication
+         
+between micro services now let's
+         
+understand a synchronous inter-service
+         
+communication model so in this case
+         
+suppose if our client wants to talk to
+         
+this micro service one it all it makes a
+         
+call to API gateway in the Navy epoch
+         
+makes a call to make service one and
+         
+here we have a synchronous way of
+         
+communication so when do we need a
+         
+synchronous way of communication he is
+     
+basically for example there are a couple
+      
+of micro services which also want their
+      
+data to be updated so first of all you
+      
+guys know that every micro service will
+      
+have its own database that's right so in
+         
+that case say for example an order is
+         
+placed in this micro service to say this
+         
+is an order micro service and every
+         
+other micro services also wants to know
+         
+about when an order is placed how do we
+         
+basically send that information to all
+         
+of these micro services that an order is
+         
+placed we can't have a one database
+         
+which are all of these Microsoft
+         
+chef's this is anti-pattern so what we
+         
+can do is we can build a data pipeline
+         
+like system which by using queues how
+         
+what happens now is when an order is
+         
+placed to this micro services this micro
+         
+services my tow service basically sends
+         
+a message to this queue okay and then
+      
+all the micro services which are
+      
+basically listening to this queue will
+      
+get updated that order is placed and
+      
+they will basically write into their
+      
+respective databases for example like
+         
+there is this micro service or maybe
+         
+yeah let's say this micro service has to
+         
+send data to these two micro services
+         
+all these     seville - dependent on this
+         
+micro cells what happens now is this the
+         
+micro cell is one basically like some
+         
+data order data to this these two queues
+         
+and it will become zoom by a mystery and
+         
+also M is for okay and it can also make
+         
+a synchronous call here or it can send
+         
+an information here and maybe an MS     is
+         
+also consuming from them so basically
+         
+every data exchange actually happens 
+         
+asynchronously using queues and if you
+      
+see here there are no synchronous call
+      
+so the response will be much faster all
+      
+you have to make sure is the message is
+      
+written into the queue so this is one
+      
+way to you know send the data bit you
+         
+know to different micro services or
+         
+share that data across micro services
+         
+without using synchronous communication
+         
+it is always good to have a synchronous
+         
+way of communicating between micro
+         
+services because for the reason now they
+         
+are not really you know tightly covered
+         
+even though for example if this micro
+         
+services goes down we are this micro
+         
+services is not really impacted from
+         
+this because the queue is up this micro
+         
+services can always send a message to
+         
+this queue even though this micro
+         
+service is not available right now when
+         
+it comes back it will always consume all
+         
+the data which was loaded into that
+         
+queue
+         
+and then it executes what we're supposed
+         
+to do the same is the case with these
+         
+two as well so this is not really
+         
+tightly coupled to these services also
+         
+and they're not really this much
+     
+services not really affected by the
+      
+availability of these micro services as
+      
+well that's the very important thing in
+      
+micro services because they are isolated
+      
+now right this is what the asynchronous
+         
+way of communication so let's understand
+         
+what is or what are the advantages the
+         
+APS will be faster for the reason for
+         
+the same reason that we are not really
+         
+making any synchronous call and we're
+         
+not waiting for the response to they
+         
+returned from the other micro services
+         
+all we are doing is updating the queues
+         
+and then we are just returning the
+         
+response
+         
+doing whatever process we are supposed
+         
+to do so that a case will be much faster
+         
+and the services are decoupled now now
+         
+as I already mentioned they are not
+         
+really affected by the availability of
+         
+these services all we have to make sure
+         
+is the queue is available and the third
+         
+one is works even when the services are
+         
+done that's one of the same right and
+         
+the fourth one is no need for service
+         
+discovery it's also one more important
+         
+thing we all understood what is service
+      
+discovery now this micro services
+      
+doesn't really care about what is the
+      
+network address for this micro service
+      
+this and this on it has to know is what
+      
+is the address for the distributed Q and
+         
+the Q name or the topic name that's all
+         
+it knows need to know and that can be
+         
+hard-coded so we don't really need you
+         
+know service discoverability here so
+         
+that's our bandages now what are the
+         
+disadvantages of using a synchronous you
+         
+know way of communicating between micro
+         
+services the design will be complicated
+         
+so if you see in the previous
+         
+synchronous we have communication X it
+         
+was very simple right but now there are
+         
+lot of components here there is Q
+         
+there's these micro services are talking
+         
+to this Q and this also talks to this Q
+         
+there is monitoring in between and this
+         
+is this weird we need to maintain this
+         
+queues the complan the design will be
+         
+complex but the system works well and it
+         
+is decoupled the second disadvantage is
+      
+process latency what it really means
+      
+say for example if this queue is
+      
+overloaded and if the service is not
+      
+really scaled it could be that this
+      
+whatever it is this micro service was
+         
+supposed to do might have been delayed
+         
+than they expected time if it was
+         
+synchronous a processing then we are
+         
+sure that by the time we get response
+         
+from micro service     we have finished
+         
+all of the processing but in this case
+         
+we can't expect always these this micro
+         
+service has finished its job so there
+         
+could be an additional delay or if it is
+         
+overloaded the third one is monetary
+         
+cost or running also the running cost of
+         
+the queue so earlier we were making
+         
+direct costs over the network but now
+         
+since we have introduced a buffer or a
+         
+queue in between now we have to deploy
+         
+this also and we have to make it
+         
+reliable and for tolerance so we will be
+         
+distributing so it incurs you know
+            
+running cost for the queues as well and
+        
+also monitoring costs to monitor all the
+         
+data flow happening through the queue so
+         
+it increases the cost or the billing so
+         
+so these are the advantages and
+         
+disadvantages of a synchronous
+            
+intercompany inter-service communication
+            
+I hope you guys understood all of this
